@@ -21,6 +21,15 @@
 //      - traverse the list untill temp hit nullptr
 //      - print the values
 //      - update a nullptr when we reached the end of the list(move to the next node)
+//PrintListBackwards(Given the head of a list, reverse the list and return the head of reversed list):
+//      - create a temp pointer to traverse the list from head
+//      - create and initialize prev pointer to nullptr
+//      - initialize next pointer to nullptr
+//      - traverse through the nodes untill we hit nullptr
+//      - store next
+//      - Reverse current node's next pointer
+//      - Move pointers one position ahead
+//      - Return the head of reversed linked list
 //test the functions in main:
 //add values and print a result
 //refactor (make it generic, using template)
@@ -71,6 +80,29 @@ void PrintListForward(Node<T>*& head) {
  cout << "nullptr"<<endl;
 }
 
+template <typename T>
+void PrintListBackwards(Node<T>*& head) {
+  Node<T>* temp = head;
+  Node<T>* prev = nullptr;
+  Node<T>* next = nullptr;
+  
+  // First reverse the list
+  while (temp != nullptr) {
+    next = temp->next;
+    temp->next = prev;
+    prev = temp;
+    temp = next;
+  }
+  
+  // Now print the reversed list
+  temp = prev;  // prev is now the new head
+  while (temp != nullptr) {
+    cout << temp->data << " -> ";
+    temp = temp->next;
+  }
+  cout << "nullptr" << endl;
+}
+
 int main() {
   Node<int>* singlyLL = nullptr;
   InsertNodeAtFront(singlyLL, 1);
@@ -78,5 +110,8 @@ int main() {
 
   InsertNodeAtEnd(singlyLL, 2);
   PrintListForward(singlyLL);
+
+  InsertNodeAtEnd(singlyLL, 5);
+  PrintListBackwards(singlyLL);
   return 0;
 }
