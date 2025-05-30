@@ -1,5 +1,5 @@
 //Singly LinkedList practice program
-//InsertNodeAtFront, InsertNodeAtEnd, PrintListForward
+//InsertNodeAtFront, InsertNodeAtEnd, PrintListForward, ReverseList
 //pseudocode:
 //create struct Node: data, next, constructor(assign data with value, next to nullptr)
 //create an empty list in main
@@ -16,12 +16,22 @@
 //      - loop through the list untill it hit nullptr
 //      - move to the next node
 //      - asign the last node next with nullptr
+//InsertAtIndex:
+//      - if index < 0 - return. Don't work with negative
+//      - if index == 0 - insertAtFront
+//      - create temp node
+//      - traverse through the linked List (for loop) until we hit the node BEFORE the providing index.
+//      - change the next pointer to another node
+//      - if next node == nullptr, return
+//      - create a new Node
+//      - inject a new Node into the Linked List
+//      - temp node points to a new node
 //PrintListForward:
 //      - create a temp pointer to traverse the list from head
 //      - traverse the list untill temp hit nullptr
 //      - print the values
 //      - update a nullptr when we reached the end of the list(move to the next node)
-//PrintListBackwards(Given the head of a list, reverse the list and return the head of reversed list):
+//ReverseList(Given the head of a list, reverse the list and return the head of reversed list):
 //      - create a temp pointer to traverse the list from head
 //      - create and initialize prev pointer to nullptr
 //      - initialize next pointer to nullptr
@@ -31,7 +41,7 @@
 //      - Move pointers one position ahead
 //      - Return the head of reversed linked list
 //test the functions in main:
-//add values and print a result
+//      - add values, print result, reverse, print again
 //refactor (make it generic, using template)
 
 #include <string>
@@ -71,6 +81,31 @@ void InsertNodeAtEnd(Node<T>*& head, T value) {
 }
 
 template <typename T>
+void InsertAtIndex(Node<T>*& head, int index, T value) {
+  if(index < 0) return;
+  if(index == 0) {
+    InsertNodeAtFront(head, value);
+    return;
+  }
+
+  Node<T>* current = head;  //a new temp pointer
+  //traverse through the list until we hit the node before the provided index
+  for(int i = 0; current != nullptr && i < index-1; i++) {
+    current = current->next; //reference to another node of nullprt
+  }
+
+  if(current == nullptr) {
+    return; //or throw the error:  cerr << ""
+  }
+
+  //if we make it here, current points to Node that we're looking for at index -1
+  Node<T>* newNode = new Node<T>(value); //create a new node
+  newNode->next = current->next;  //new node gets injected into linked list
+  current->next = newNode;  //current node now points to a new node
+}
+
+
+template <typename T>
 void PrintListForward(Node<T>*& head) {
  Node<T>* temp = head;
  while (temp != nullptr) {
@@ -93,8 +128,7 @@ void PrintListBackwards(Node<T>*& head) {
     prev = temp;
     temp = next;
   }
-  
-  // Now print the reversed list
+
   temp = prev;  // prev is now the new head
   while (temp != nullptr) {
     cout << temp->data << " -> ";
@@ -113,5 +147,8 @@ int main() {
 
   InsertNodeAtEnd(singlyLL, 5);
   PrintListBackwards(singlyLL);
+
+  InsertAtIndex(singlyLL, 2, 5); //insert a new node with value '5' BEFORE index [2]
+  PrintListForward(singlyLL);
   return 0;
 }
