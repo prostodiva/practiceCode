@@ -3,8 +3,8 @@ CFLAGS = -Wall -Wextra -std=c++17 -g
 
 all: main
 
-main: ref.cpp
-	$(CC) $(CFLAGS) main.cpp -o main
+main: main.cpp
+	$(CC) $(CFLAFS) main.cpp -o main
 
 clean:
 	rm -f main

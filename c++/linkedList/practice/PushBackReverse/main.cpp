@@ -12,12 +12,12 @@ struct Node {
 };
 
 template<typename T>
-void PushBack(Node<T>*& head, T value) {
+void PushAtBack(Node<T>*& head, T value) {
   Node<T>* newNode = new Node<T>(value);
   newNode->next = nullptr;
   if (head == nullptr) {
+    newNode->next = head;
     head = newNode;
-    return;
   } else {
     Node<T>* temp = head;
     while (temp->next != nullptr) {
@@ -25,50 +25,48 @@ void PushBack(Node<T>*& head, T value) {
     }
     temp->next = newNode;
   }
-
-
 }
 
 template<typename T>
 void PrintList(Node<T>*& head) {
   Node<T>* temp = head;
-  while (temp != nullptr) {
-      cout << temp->data << " -> ";
-      temp = temp->next;
-    }
-    cout << "nullptr"<<endl;
+  while(temp != nullptr) {
+    cout <<temp->data << " -> ";
+    temp = temp->next;
+  }
+  cout << "nullptr"<<endl;
 }
 
 template<typename T>
-void ReverseList(Node<T>*& head) {
+void ReverseList(Node<T>* head) {
   Node<T>* temp = head;
-  Node<T>* prev = nullptr;
   Node<T>* next = nullptr;
+  Node<T>* prev = nullptr;
 
-  // First reverse the list
   while (temp != nullptr) {
     next = temp->next;
     temp->next = prev;
     prev = temp;
     temp = next;
   }
-  //the list is reversed. going to oppisite direction
-  temp = prev;   //prev is a new head
-  while(temp != nullptr) {
-    cout << temp->data <<" -> ";
+
+  temp = prev;
+  while (temp != nullptr) {
+    cout << temp->data << " - > ";
     temp = temp->next;
   }
-  cout <<"nullptr"<<endl;
- }
+  cout << "nullptr" <<endl;
+}
 
 int main() {
   Node<int>* singlyLL = nullptr;
-  PushBack(singlyLL, 10);
-  PushBack(singlyLL, 12);
-  PushBack(singlyLL, 14);
-  PrintList(singlyLL);    //expected output 10 -> 12 -> 14 -> nullptr
+  PushAtBack(singlyLL, 40);
+  PushAtBack(singlyLL, 30);
+  PushAtBack(singlyLL, 60);
 
-  ReverseList(singlyLL);    //expected output 14 -> 12 -> 10
+  PrintList(singlyLL);
+
+  ReverseList(singlyLL);
 
   return 0;
 }

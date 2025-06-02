@@ -12,29 +12,29 @@ struct Node {
 };
 
 template<typename T>
-void InsertAtFront(Node<T>*& head, T value) {
-  Node<T>* newNode = new Node<T>(value);    //create a new node
-  newNode->next = head;         //make a new node the head
+void PushAtFront(Node<T>*& head, T value) {
+  Node<T>* newNode = new Node<T>(value);
+  newNode->next = head;
   head = newNode;
 }
 
 template<typename T>
-void PrintList(Node<T>*& head) {
-  Node<T>* current = head;        //create a temp pointer with the same address as the head
-  while (current != nullptr) {    //while current is nos nullptr(the end of the list)
-    cout << current->data << " -> ";  //print the value in the node
-    current = current->next;        //move current to the next node
+void PrintList(Node<T>* head) {
+  Node<T>* temp = head;
+  while (temp != nullptr) {
+    cout << temp->data << " -> ";
+    temp = temp->next;
   }
   cout << "nullptr"<<endl;
 }
 
-//expected output: 10 -> 8 -> 3 -> nullptr
+//30 20 10 nullptr
 int main() {
-  Node<int>* intList = nullptr;
-  InsertAtFront(intList, 3);
-  InsertAtFront(intList, 8);
-  InsertAtFront(intList, 10);
+  Node<int>* singlyLL = nullptr;
+  PushAtFront(singlyLL, 10);
+  PushAtFront(singlyLL, 20);
+  PushAtFront(singlyLL, 30);
 
-  PrintList(intList);
+  PrintList(singlyLL);
   return 0;
 }
