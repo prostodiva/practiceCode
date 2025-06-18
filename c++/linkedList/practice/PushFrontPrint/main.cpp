@@ -19,7 +19,7 @@ void PushAtFront(Node<T>*& head, T value) {
 }
 
 template<typename T>
-void PrintList(Node<T>* head) {
+void PrintList(Node<T>*& head) {
   Node<T>* temp = head;
   while (temp != nullptr) {
     cout << temp->data << " -> ";
@@ -28,12 +28,12 @@ void PrintList(Node<T>* head) {
   cout << "nullptr"<<endl;
 }
 
-//30 20 10 nullptr
+//10, 30 20
 int main() {
   Node<int>* singlyLL = nullptr;
-  PushAtFront(singlyLL, 10);
   PushAtFront(singlyLL, 20);
   PushAtFront(singlyLL, 30);
+  PushAtFront(singlyLL, 10);
 
   PrintList(singlyLL);
   return 0;

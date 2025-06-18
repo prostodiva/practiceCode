@@ -36,8 +36,8 @@ void PrintList(Node*& head) {
 }
 
 void InsertAtIndex(Node*& head, int index, int value) {
-  if (value < 0) return;
-  if (value == 0) {
+  if (index < 0) return;
+  if (index == 0) {
     InsertAtFront(head, value);
     return;
   }

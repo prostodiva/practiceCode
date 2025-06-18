@@ -73,6 +73,28 @@ int AddValues(Node*& head) {
   }
 }
 
+int FindMax(Node*& head) {
+  Node* temp = head;
+  int max = 0;
+  if (temp == nullptr) {
+    return 0;
+  } else {
+    max = FindMax(temp->next);
+    return max > temp->data ? max : temp->data;
+  }
+}
+
+Node* SearchKey(Node*& head, int key) {
+  Node* temp = head;
+  if (temp == nullptr) {
+    return nullptr;
+  }
+  if (key == temp->data) {
+    return temp;
+  }
+  return SearchKey(temp->next, key);
+}
+
 
 int main() {
   Node* singlyLL = nullptr;
@@ -88,6 +110,9 @@ int main() {
   CountTheNodes(singlyLL);
   cout <<endl;
   CountRecursively(singlyLL);
+
+  Node* searchingResult = SearchKey(singlyLL, 3);
+  cout << searchingResult->data<<endl;
 
   return 0;
 }

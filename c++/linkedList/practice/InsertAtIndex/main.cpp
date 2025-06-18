@@ -17,21 +17,19 @@ void InsertAtFront(Node*& head, int value) {
 }
 
 void InsertAtIndex(Node*& head, int index, int value) {
-  if (value < 0) {
-    return;
+  if (index < 0) return;
+  if (index == 0) {
+    InsertAtFront(head, value); return;
+  } else {
+    Node* temp = head;
+    for (int i = 0; temp != nullptr && i < index - 1; i++) {
+      temp = temp->next;
+    }
+    if (temp == nullptr) return;
+    Node* newNode = new Node(value);
+    newNode->next = temp->next;
+    temp->next = newNode;
   }
-  if (value == 0) {
-    InsertAtFront(head, value);
-    return;
-  }
-  Node* temp = head;
-  for (int i = 0; temp != nullptr && i < index - 1; i++) {
-    temp = temp->next;
-  }
-  if (temp == nullptr) return;
-  Node* newNode = new Node(value);
-  newNode->next = temp->next;
-  temp->next = newNode;
 }
 
 void PrintList(Node*& head) {
@@ -49,6 +47,7 @@ int main() {
   InsertAtFront(singlyLL, 2);
   InsertAtFront(singlyLL, 3);
   PrintList(singlyLL);
+
   InsertAtIndex(singlyLL, 2, 10);  //at index 2, value 10
   PrintList(singlyLL);
   return 0;

@@ -10,11 +10,11 @@ struct Node {
   Node(int value) : data(value), next(nullptr) {};
 };
 
+
 bool HasCycle(Node*& head) {
   Node* slow = head;
   Node* fast = head;
-
-  while(fast != nullptr && fast->next != nullptr) {
+  while (fast != nullptr && fast->next != nullptr) {
     slow = slow->next;
     fast = fast->next->next;
     if (slow == fast) {
@@ -23,7 +23,6 @@ bool HasCycle(Node*& head) {
     return false;
   }
 }
-
 
 int main() {
   Node* singlyLL = nullptr;

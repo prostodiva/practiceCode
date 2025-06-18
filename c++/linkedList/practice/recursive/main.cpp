@@ -43,6 +43,17 @@ void CountNodes(Node*& head) {
   cout <<count;
 }
 
+//O(n) - time, O(1) - space
+void CountTheNodes(Node*& head) {
+  Node* temp = head;
+  int count = 0;
+  while(temp != nullptr) {
+    count++;
+    temp = temp->next;
+  }
+  cout << count;
+}
+
 int CountRecursively(Node*& head) {
   Node* temp = head;
   if (temp == nullptr) {
@@ -72,18 +83,36 @@ int FindMax(Node*& head) {
   }
 }
 
+//recursive
+Node* SearchKey(Node*& head, int key) {
+  Node* temp = head;
+  if (temp == nullptr) {
+    return nullptr;
+  }
+  if (key == temp->data) {
+    return temp;
+  }
+  return SearchKey(temp->next, key);
+}
 
 
 int main() {
-    Node* singlyLL = nullptr;
-    InsertAtFront(singlyLL, 5);
-    InsertAtFront(singlyLL, 4);
-    InsertAtFront(singlyLL, 3);
-    InsertAtFront(singlyLL, 2);
-    InsertAtFront(singlyLL, 1);
-    DisplayForward(singlyLL);
-    cout <<endl;
-    DisplayReversed(singlyLL);
+  Node* singlyLL = nullptr;
+  InsertAtFront(singlyLL, 5);
+  InsertAtFront(singlyLL, 4);
+  InsertAtFront(singlyLL, 3);
+  InsertAtFront(singlyLL, 2);
+  InsertAtFront(singlyLL, 1);
+  DisplayForward(singlyLL);
+  cout <<endl;
+  DisplayReversed(singlyLL);
+  cout <<endl;
+  CountTheNodes(singlyLL);
+  cout <<endl;
+  CountRecursively(singlyLL);
 
-    return 0;
+  Node* searchingResult = SearchKey(singlyLL, 3);
+  cout << searchingResult->data<<endl;
+
+  return 0;
 }

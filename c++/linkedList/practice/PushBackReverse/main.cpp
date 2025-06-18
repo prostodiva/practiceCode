@@ -20,11 +20,31 @@ void PushAtBack(Node<T>*& head, T value) {
     return;
   } else {
     Node<T>* temp = head;
-    while (temp->next != nullptr) {
+    while(temp->next != nullptr) {
       temp = temp->next;
     }
     temp->next = newNode;
   }
+}
+
+template<typename T>
+void ReverseList(Node<T>*& head) {
+  Node<T>* temp = head;
+  Node<T>* next = nullptr;
+  Node<T>* prev = nullptr;
+
+  while (temp != nullptr) {
+    next = temp->next;
+    temp->next = prev;
+    prev = temp;
+    temp = next;
+  }
+  temp = prev;
+  while (temp != nullptr) {
+    cout << temp->data << " -> ";
+    temp = temp->next;
+  }
+  cout << "nullptr"<<endl;
 }
 
 template<typename T>
@@ -37,26 +57,8 @@ void PrintList(Node<T>*& head) {
   cout << "nullptr"<<endl;
 }
 
-template<typename T>
-void ReverseList(Node<T>*& head) {
-  Node<T>* temp = head;
-  Node<T>* next = nullptr;
-  Node<T>* prev = nullptr;
-  while (temp != nullptr) {
-    next = temp->next;
-    temp->next = prev;
-    prev = temp;
-    temp = next;
-  }
-  temp = prev;
-  while(temp != nullptr) {
-    cout << temp->data << " -> ";
-    temp = temp->next;
-  }
-  cout << "nullptr";
-}
-
-
+//40 30 60
+//60 30 40
 int main() {
   Node<int>* singlyLL = nullptr;
   PushAtBack(singlyLL, 40);
