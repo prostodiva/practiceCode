@@ -77,6 +77,42 @@ int DeleteNode(Node*& head, int position) {
    return x;
 }
 
+//test this function
+Node* removeNthFromEnd(Node* head, int n) {
+    if (head == nullptr) return nullptr;
+
+    // Use two pointers approach
+    Node* fast = head;
+    Node* slow = head;
+    Node* prev = nullptr;
+
+    // Move fast pointer n steps ahead
+    for (int i = 0; i < n && fast != nullptr; i++) {
+        fast = fast->next;
+    }
+
+    // If fast becomes null, we need to remove the head
+    if (fast == nullptr) {
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+        return head;
+    }
+
+    // Move both pointers until fast reaches the end
+    while (fast != nullptr) {
+        prev = slow;
+        slow = slow->next;
+        fast = fast->next;
+    }
+
+    // Remove the nth node from end
+    prev->next = slow->next;
+    delete slow;
+
+    return head;
+}
+
 void PrintList(Node*& head) {
     Node* temp = head;
     while(temp != nullptr) {
@@ -113,6 +149,7 @@ int main() {
     // 20 50
     PrintList(singlyLL);
     cout << result;
+
 
     return 0;
 }

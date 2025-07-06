@@ -29,13 +29,12 @@ void PrintList(Node<T>* head) {
 }
 
 template<typename T>
-void DeleteList(Node<T>*& head) {
-  while(head != nullptr) {
+void deleteList(Node<T>*& head) {
+  while (head != nullptr) {
     Node<T>* temp = head;
     head = head->next;
     delete temp;
   }
-  head = nullptr;  // ← This modifies the original head
 }
 
 //10, 30 20
@@ -44,9 +43,12 @@ int main() {
   PushAtFront(singlyLL, 20);
   PushAtFront(singlyLL, 30);
   PushAtFront(singlyLL, 10);
-  PrintList(singlyLL);
 
-  DeleteList(singlyLL);
-  singlyLL = nullptr;
+  PrintList(singlyLL);
+  
+  // DEALLOCATE ALL MEMORY
+  deleteList(singlyLL);
+  singlyLL = nullptr;  // Good practice
+  
   return 0;
 }

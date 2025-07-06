@@ -44,6 +44,18 @@ void FindMax(Node*& head) {
     cout << m <<endl;
 }
 
+void FindMin(Node*& head) {
+    int m = 32768;
+    Node* temp = head;
+    while(temp != nullptr) {
+        if (temp->data < m) {
+            m = temp->data;
+        }
+        temp = temp->next;
+    }
+    cout << m <<endl;
+}
+
 int main() {
     Node* singlyLL = nullptr;
     InsertAtFront(singlyLL, 5);
@@ -51,5 +63,6 @@ int main() {
     InsertAtFront(singlyLL, 3);
     PrintList(singlyLL);
     FindMax(singlyLL);
+    FindMin(singlyLL);
     return 0;
 }
