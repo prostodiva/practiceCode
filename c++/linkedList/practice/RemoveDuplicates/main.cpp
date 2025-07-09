@@ -49,34 +49,36 @@ Node* RemoveDuplicates(Node*& head) {
     return head;
 }
 
-//check if list is empty
-//create outer pointer(start with head) and traverse
-//inside the previous loop: create inner pointer(start from outer)
-//traverse inner until inner->next != nullptr
-//compare the data (check for true)
-// create temp to store node to delete
-//relick inner->next(skip the duplicate)
-//delete temp
-//move inner
-//move outer
-//return head
-Node* RemoveDupsFromUnSorted(Node* head) {
-    if (head == nullptr) return nullptr;
-    Node* outer = head;
-    while (outer != nullptr) {
-      Node* inner = outer;
-      while (inner->next != nullptr) {
-        if (inner->data == inner->next->data) {
-            Node* temp = inner->next;
-            inner->next = inner->next->next;
-            delete temp;
+//"check if list is empty" → if (head == nullptr) return nullptr;
+//"create outer pointer(start with head) and traverse" → Node* outer = head; while (outer != nullptr)
+//    "inside the previous loop: create inner pointer(start from outer)" → Node* inner = outer;
+//"traverse inner until inner->next != nullptr" → while (inner->next != nullptr)
+//    "compare the data (check for true)" → if (outer->data == inner->next->data)
+//        "create temp to store node to delete" → Node* temp = inner->next;
+//"relink inner->next(skip the duplicate)" → inner->next = inner->next->next;
+//"delete temp" → delete temp;
+//"move inner" → inner = inner->next; (in else block)
+//"move outer" → outer = outer->next;
+//"return head" → return head;
+Node* RemoveDupsFromUnSorted(Node*& head) {
+        if (head == nullptr) return nullptr;
+
+        Node* outer = head;
+        while (outer != nullptr) {
+            Node* inner = outer;
+            while (inner->next != nullptr) {
+                if (outer->data == inner->next->data) {
+                    Node* temp = inner->next;
+                    inner->next = inner->next->next;
+                    delete temp;
+                } else {
+                    inner = inner->next;
+                }
+            }
+            outer = outer->next;
         }
-        inner = inner->next;
-      }
-      outer = outer->next;
+        return head;
     }
-    return head;
-}
 
 void PrintList(Node*& head) {
     Node* temp = head;
@@ -85,6 +87,15 @@ void PrintList(Node*& head) {
         temp = temp->next;
     }
     cout << "nullptr"<<endl;
+}
+
+void DeleteList(Node*& head) {
+  while (head != nullptr) {
+    Node* temp = head;
+    head = head->next;
+    delete temp;
+  }
+  head = nullptr;
 }
 
 
@@ -105,6 +116,8 @@ int main() {
     PrintList(singlyLL);    // 30->10->10->30->40->nullptr
     RemoveDupsFromUnSorted(singlyLL);
     PrintList(singlyLL);     // 30->10->40->nullptr
+
+    DeleteList(singlyLL);
 
     return 0;
 }

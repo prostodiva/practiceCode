@@ -35,7 +35,7 @@ void DeleteList(Node<T>*& head) {
     head = head->next;
     delete temp;
   }
-  head = nullptr;  // ← This modifies the original head
+  head = nullptr;  // ← This modifies the original head to nullptr (safe)
 }
 
 //10, 30 20
