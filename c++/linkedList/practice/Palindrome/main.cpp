@@ -102,6 +102,16 @@ void PrintList(Node<T>*& head) {
     cout << "nullptr" <<endl;
 }
 
+template<typename T>
+void DeleteList(Node<T>*& head) {
+  while (head != nullptr) {
+    Node<T>* temp = head;
+    head = head->next;
+    delete temp;
+  }
+  head = nullptr;
+}
+
 
 //mom
 int main() {
@@ -123,10 +133,13 @@ int main() {
     InsertAtBack(singlyLL2, 9);
     PrintList(singlyLL2);
 
-
     cout << isPalindrome(singlyLL) <<endl;
     cout << isPalindrome(singlyIntList) <<endl;
     cout << isPalindrome(singlyLL2) <<endl;
+
+    DeleteList(singlyLL);
+    DeleteList(singlyLL2);
+    DeleteList(singlyIntList);
 
     return 0;
 }
