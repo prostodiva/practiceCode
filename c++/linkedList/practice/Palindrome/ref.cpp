@@ -34,48 +34,49 @@ void InsertAtFront(Node<T>*& head, T value) {
     head = newNode;
 }
 
-//check if head and head->next is nullptr(check for an empty string)
-//find the middle of the list
-//	- create two pointers(fast && slow)
-//	- traverse through the list until fast->next != nullptr
-//reverse the second half
-//	- sliding pointers technique
-//	- create three pointers(prev, temp, next)
-//	- reverse with 4 steps
-//compare halfs
-//	- create two pointers(first, second)
-//restore the list
-//return the result
+//Find the Middle of the Linked List
+//     Use the slow and fast pointers where slow advances by one step and fast by two steps.
+//By the time fast reaches the end of the list, slow will be at the middle.
+//Reverse the Second Half of the List
+//     Reverse the linked list starting from the node at the slow pointer position.
+//     use sliding three pointers technique
+//Compare Both Halves
+//Restore the List
+//Return the Result
 template<typename T>
 bool isPalindrome(Node<T>* head) {
-    if (head == nullptr || head->next == nullptr) return true;
-    Node<T>* slow = head;
-    Node<T>* fast = head;
-    while (fast->next && fast->next->next) {
-      slow = slow->next;
-      fast = fast->next->next;
-    }
+  Node<T>* slow = head;
+  Node<T>* fast = head;
+  if (head == nullptr || head->next == nullptr) return true;
+  //find the middle
+  while (fast->next && fast->next->next) {
+    slow = slow->next;
+    fast = fast->next->next;
+  }
+    //reverse the second half(with sliding three pointers)
     Node<T>* prev = nullptr;
     Node<T>* temp = nullptr;
-    Node<T>* next = slow->next;    //start from the second node
+    Node<T>* next = slow->next;
     while (next != nullptr) {
       prev = temp;
       temp = next;
       next = next->next;
       temp->next = prev;
-    }
-    prev = temp;
+     }
+     prev = temp;
+    //compare both halfs
     Node<T>* first = head;
     Node<T>* second = prev;
-    bool palidrome = true;
+    bool palindrome = true;
     while (second != nullptr) {
       if (first->data != second->data) {
-        return false;
+        palindrome = false;
         break;
       }
       first = first->next;
       second = second->next;
     }
+    //restore the list
     temp = prev;
     prev = nullptr;
     while (temp) {
@@ -84,8 +85,11 @@ bool isPalindrome(Node<T>* head) {
         prev = temp;
         temp = next;
     }
-    return palidrome;
-}
+    slow->next = prev;
+
+    //Return result
+    return palindrome;
+    }
 
 
 template<typename T>
