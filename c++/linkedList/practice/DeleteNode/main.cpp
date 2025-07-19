@@ -60,6 +60,7 @@ int DeleteNode(Node*& head, int position) {
    Node* temp = head;
    Node* prev = nullptr;
    int x = -1;
+   if (head == nullptr) return x;
    if (position == 1) {
      head = head->next;
      x = temp->data;

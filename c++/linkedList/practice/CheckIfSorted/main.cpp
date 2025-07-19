@@ -20,7 +20,7 @@ void PushAtFront(Node*& head, int value) {
   head = newNode;
 }
 
-bool CheckIfSorted(Node*& head) {
+bool CheckIfSorted(Node* head) {
     Node* temp = head;
     int x = -32768;
     while(temp != nullptr) {

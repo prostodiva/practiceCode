@@ -33,6 +33,7 @@ void PrintList(Node<T>* head) {
 //prev follows temp
 template<typename T>
 Node<T>* SearchKeyAndMove(Node<T>*& head, int key) {
+    if (head == nullptr) return nullptr;
     Node<T>* temp = head;
     Node<T>* prev = nullptr;
     while(temp != nullptr) {
