@@ -6,6 +6,7 @@
         input/output/cerr/clogs
 - store fractional nums
 - setprecision
+- static_cast
 */
 
 #include <string>                   //alows to use a string class
@@ -78,6 +79,11 @@ int main() {                        // the entry point of the C++ program(the fi
 														   // the rest of it is a garbage
     std::cout << std::setprecision(20) << b << std::endl;  // precision should be around 17 digits
     std::cout << std::setprecision(20) << c << std::endl;  // > double
+
+    //char
+    char value = 65;
+    std::cout << "Prints ASCII char - A: "<< value <<std::endl;
+    std::cout << "value(int): " << static_cast<int>(value) <<std::endl;
 
     return 0;                       // send a message to OS if the program finished up successfully or it was a problem
 }
