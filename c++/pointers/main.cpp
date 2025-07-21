@@ -3,6 +3,7 @@
 - initialization
 - dereferencing
 - initialize with string literal: c-string
+- modify the string
 */
 
 
@@ -38,11 +39,14 @@ int main() {
     //int* ptr2 = nullptr;
     //*ptr2 = 42;
 
-    //c-string(char array):
+    //c-string(the string literal will be converted to array of chars):
     const char* p_message = "Hello c-string";    //use const to avoid compile error
     std::cout << *p_message <<std::endl;    //print only first char 'H'
     std::cout <<  p_message <<std::endl;    //print the whole string
     //if you want to modify a string inside - use array
+    char message[] = "Hello world";
+    message[0] = 'B';
+    std::cout << message <<std::endl;
 
     return 0;
 }
