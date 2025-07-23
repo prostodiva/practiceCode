@@ -1,4 +1,4 @@
-/*pointers
+/*pointers. In these examples we use stack memory
 - declaration
 - initialization
 - dereferencing
@@ -32,8 +32,9 @@ int main() {
     int* ptr1 = nullptr;
     int data = 56;
     ptr1 = &data;
-    std::cout << data <<std::endl;
-
+    std::cout <<"data: "<< data <<std::endl;
+    std::cout <<"address: "<< &data <<std::endl;
+    std::cout <<"Data: "<< *ptr1 <<std::endl;
     //don't dereference(change the address) of nullptr 
     //SEG FAULT: this is not valid:
     //int* ptr2 = nullptr;
