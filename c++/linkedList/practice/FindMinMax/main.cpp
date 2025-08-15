@@ -1,68 +1,73 @@
-//find max in the list.
-//pseudocode:
-//initialise min with -32768;  //MIN_INT
-//traverse through the list, compare with min
-
-
 #include <iostream>
 #include <string>
 
 using namespace std;
 
-struct Node {
-    int data;
-    Node* next;
+struct Node{
+  int data;
+  Node* next;
 
-    Node(int value) : data(value), next(nullptr) {};
+  Node(int value) : data(value), next(nullptr) {};
 };
 
-void InsertAtFront(Node*& head, int value) {
-    Node* newNode = new Node(value);
-    newNode->next = head;
-    head = newNode;
+Node* CreateList(int arr[], int size) {
+  if (size == 0) return nullptr;
+
+  Node* head = new Node(arr[0]);
+  Node* temp = head;
+  for (int i = 1; i < size; i++) {
+    temp->next = new Node(arr[i]);
+    temp = temp->next;
+  }
+  return head;
+}
+
+void PrintList(Node* head) {
+  Node* temp = head;
+  while(temp != nullptr) {
+    cout << temp->data << " -> ";
+    temp = temp->next;
+  }
+  cout << "nullptr"<<endl;
 }
 
 
-void PrintList(Node*& head) {
-    Node* temp = head;
-    while(temp != nullptr) {
-        cout << temp->data << " -> ";
-        temp = temp->next;
+int FindMax(Node* head) {
+   int max = -32768;
+   Node* temp = head;
+   while (temp != nullptr) {
+     if (temp->data > max) {
+       max = temp->data;
+     }
+     temp = temp->next;
+   }
+   return max;
+}
+
+int FindMin(Node* head) {
+  int min = 32768;
+  Node* temp = head;
+  while(temp != nullptr) {
+    if (temp->data < min) {
+      min = temp->data;
     }
-    cout << "nullptr"<<endl;
+    temp = temp->next;
+  }
+  return min;
 }
 
-void FindMax(Node*& head) {
-    int m = -32768;
-    Node* temp = head;
-    while(temp != nullptr) {
-      if (temp->data > m) {
-        m = temp->data;
-      }
-      temp = temp->next;
-    }
-    cout << m <<endl;
-}
 
-void FindMin(Node*& head) {
-    int m = 32768;
-    Node* temp = head;
-    while(temp != nullptr) {
-        if (temp->data < m) {
-            m = temp->data;
-        }
-        temp = temp->next;
-    }
-    cout << m <<endl;
-}
-
+//create a list from the array
 int main() {
-    Node* singlyLL = nullptr;
-    InsertAtFront(singlyLL, 5);
-    InsertAtFront(singlyLL, 2);
-    InsertAtFront(singlyLL, 3);
-    PrintList(singlyLL);
-    FindMax(singlyLL);
-    FindMin(singlyLL);
-    return 0;
+  int list[] = {5, 10, 2, 8};
+  Node* linkedList = CreateList(list, 4);
+  PrintList(linkedList);
+
+  int max = FindMax(linkedList);
+  cout << max <<endl;
+
+  int min = FindMin(linkedList);
+  cout << min << endl;
+
+  return 0;
 }

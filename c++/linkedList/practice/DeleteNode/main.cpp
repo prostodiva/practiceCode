@@ -33,6 +33,7 @@ void InsertAtBack(Node*& head, int value) {
 //save the value from temp
 // delete temp
 void DeleteFirstNode(Node*& head) {
+    if (head == nullptr) return;
     Node* temp = head;
     head = head->next;
     delete temp;
@@ -45,37 +46,33 @@ void DeleteFirstNode(Node*& head) {
 //relink prev
 //deallocate temp
 void DeleteAtPosition(Node*& head, int position) {
-  Node* temp = head;
-  Node* prev = nullptr;
-  for (int i = 0; i < position - 1; i++) {
-    prev = temp;
-    temp = temp->next;
-  }
-  prev->next = temp->next;
-  delete temp;
+    if (head == nullptr) return;
+
+    Node* prev = nullptr;
+    Node* temp = head;
+    for (int i = 0; temp != nullptr && i < position - 1; i++) {
+      prev = temp;
+      temp = temp->next;
+    }
+    prev->next = temp->next;
+    delete temp;
 }
 
 //returns deleted data value
+//delete 30 (position 3(index 0))
 int DeleteNode(Node*& head, int position) {
-   Node* temp = head;
-   Node* prev = nullptr;
-   int x = -1;
-   if (head == nullptr) return x;
-   if (position == 1) {
-     head = head->next;
-     x = temp->data;
-     delete temp;
-   }
-   for (int i = 0; i < position - 1 && temp != nullptr; i++) {
-     prev = temp;
-     temp = temp->next;
-   }
-   if (temp != nullptr) {
-     prev->next = temp->next;
-     x = temp->data;
-     delete temp;
-   }
-   return x;
+    Node* prev = nullptr;
+    Node* temp = head;
+    int x = -1;
+    for (int i = 0; temp != nullptr && i < position - 1; i++) {
+        prev = temp;
+        temp = temp->next;
+    }
+    x = temp->data;
+    prev->next = temp->next;
+    delete temp;
+
+    return x;
 }
 
 //test this function

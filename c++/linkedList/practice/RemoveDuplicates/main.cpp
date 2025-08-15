@@ -33,6 +33,7 @@ void PushAtFront(Node*& head, int value) {
 //return head
 Node* RemoveDuplicates(Node*& head) {
     if (head == nullptr) return nullptr;
+
     Node* prev = head;
     Node* temp = head->next;
     while (temp != nullptr) {
@@ -45,10 +46,8 @@ Node* RemoveDuplicates(Node*& head) {
         temp = prev->next;
       }
     }
-
     return head;
 }
-
 //"check if list is empty" → if (head == nullptr) return nullptr;
 //"create outer pointer(start with head) and traverse" → Node* outer = head; while (outer != nullptr)
 //    "inside the previous loop: create inner pointer(start from outer)" → Node* inner = outer;
@@ -61,24 +60,24 @@ Node* RemoveDuplicates(Node*& head) {
 //"move outer" → outer = outer->next;
 //"return head" → return head;
 Node* RemoveDupsFromUnSorted(Node*& head) {
-        if (head == nullptr) return nullptr;
+    if (head == nullptr) return nullptr;
 
-        Node* outer = head;
-        while (outer != nullptr) {
-            Node* inner = outer;
-            while (inner->next != nullptr) {
-                if (outer->data == inner->next->data) {
-                    Node* temp = inner->next;
-                    inner->next = inner->next->next;
-                    delete temp;
-                } else {
-                    inner = inner->next;
-                }
-            }
-            outer = outer->next;
+    Node* outer = head;
+    while (outer != nullptr) {
+      Node* inner = outer;
+      while(inner->next != nullptr) {
+        if (outer->data == inner->next->data) {
+          Node* temp = inner->next;
+          inner->next = inner->next->next;
+          delete temp;
+        } else {
+          inner = inner->next;
         }
-        return head;
+      }
+      outer = outer->next;
     }
+   return head;
+}
 
 void PrintList(Node*& head) {
     Node* temp = head;

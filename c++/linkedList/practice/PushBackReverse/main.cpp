@@ -3,43 +3,35 @@
 
 using namespace std;
 
-template<typename T>
 struct Node {
-  T data;
+  int data;
   Node* next;
 
-  Node(T value) : data(value), next(nullptr) {};
+  Node(int value) : data(value), next(nullptr) {};
 };
 
-template<typename T>
-void PushAtBack(Node<T>*& head, T value) {
-  Node<T>* newNode = new Node<T>(value);
-  newNode->next = nullptr;
+void InsertAtFront(Node*& head, int value) {
+  Node* newNode = new Node(value);
+  newNode->next = head;
+  head = newNode;
+}
+
+void InsertAtEnd(Node*& head, int value) {
   if (head == nullptr) {
-    head = newNode;
-    return;
+    InsertAtFront(head, value);
   } else {
-    Node<T>* temp = head;
-    while(temp->next != nullptr) {
-      temp = temp->next;
-    }
-    temp->next = newNode;
+    Node* newNode = new Node(value);
+  Node* temp = head;
+  while (temp->next != nullptr) {
+    temp = temp->next;
+  }
+  temp->next = newNode;
+  newNode->next = nullptr;
   }
 }
 
-template<typename T>
-void ReverseList(Node<T>*& head) {
-  Node<T>* temp = head;
-  Node<T>* next = nullptr;
-  Node<T>* prev = nullptr;
-
-  while (temp != nullptr) {
-    next = temp->next;
-    temp->next = prev;
-    prev = temp;
-    temp = next;
-  }
-  temp = prev;
+void PrintList(Node* head) {
+  Node* temp = head;
   while (temp != nullptr) {
     cout << temp->data << " -> ";
     temp = temp->next;
@@ -47,27 +39,34 @@ void ReverseList(Node<T>*& head) {
   cout << "nullptr"<<endl;
 }
 
-template<typename T>
-void PrintList(Node<T>*& head) {
-  Node<T>* temp = head;
-  while(temp != nullptr) {
-    cout <<temp->data << " -> ";
-    temp = temp->next;
+//create 3 pointers; slide forward until nullptr; relink the middle one to prev; middle pointer is a new head;
+Node* ReverseList(Node*& head) {
+  if (head == nullptr) return nullptr;
+  Node* prev = nullptr;
+  Node* temp = nullptr;
+  Node* next = head;
+  while (next != nullptr) {
+    prev = temp;
+    temp = next;
+    next = next->next;
+    //relink the middle pointer - temp
+    temp->next = prev;
   }
-  cout << "nullptr"<<endl;
+  head = temp;
+return head;
 }
 
-//40 30 60
-//60 30 40
-int main() {
-  Node<int>* singlyLL = nullptr;
-  PushAtBack(singlyLL, 40);
-  PushAtBack(singlyLL, 30);
-  PushAtBack(singlyLL, 60);
 
+
+int main() {
+  Node* singlyLL = nullptr;
+  InsertAtEnd(singlyLL, 30);
+  InsertAtEnd(singlyLL, 40);
+  InsertAtEnd(singlyLL, 50);
   PrintList(singlyLL);
 
   ReverseList(singlyLL);
+  PrintList(singlyLL);
 
   return 0;
 }

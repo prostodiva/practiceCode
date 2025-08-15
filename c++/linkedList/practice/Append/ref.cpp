@@ -21,15 +21,14 @@ void PushAtFront(Node<T>*& head, T value) {
 }
 
 template<typename T>
-Node<T>* Append(Node<T>*& first, Node<T>*& second) {
-  if (first == nullptr && second == nullptr) return nullptr;
-  Node<T>* temp = first;
-  while (temp->next != nullptr) {
-    temp = temp->next;
-  }
-  temp->next = second;
-  second = nullptr;
-  return first;
+Node<T>* Append(Node<T>*& firstHead, Node<T>*& secondHead) {
+    Node<T>* temp = firstHead;
+    while(temp->next != nullptr) {
+        temp = temp->next;
+    }
+    temp->next = secondHead;
+    secondHead = nullptr;
+    return firstHead;
 }
 
 

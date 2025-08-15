@@ -19,7 +19,7 @@ void InsertAtFront(Node<T>*& head, T value) {
 }
 
 template<typename T>
-void PrintList(Node<T>*& head) {
+void PrintList(Node<T>* head) {
   Node<T>* current = head;        //create a temp pointer with the same address as the head
   while (current != nullptr) {    //while current is nos nullptr(the end of the list)
     cout << current->data << " -> ";  //print the value in the node

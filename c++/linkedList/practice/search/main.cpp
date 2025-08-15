@@ -28,28 +28,27 @@ void PrintList(Node<T>* head) {
     cout << "nullptr"<<endl;
 }
 
-
-//move the key to the head
-//prev follows temp
 template<typename T>
-Node<T>* SearchKeyAndMove(Node<T>*& head, int key) {
-    if (head == nullptr) return nullptr;
-    Node<T>* temp = head;
-    Node<T>* prev = nullptr;
-    while(temp != nullptr) {
-      if (key == temp->data) {
-        prev->next = temp->next;
-        temp->next = head;
-        head = temp;
-      }
-      prev = temp;
-      temp = temp->next;
+void SearchKeyAndMove(Node<T>*& head, T key) {
+  if (head == nullptr) return;
+  Node<T>* prev = nullptr;
+  Node<T>* temp = head;
+  while (temp != nullptr) {
+    if (temp->data == key) {
+      prev->next = temp->next;
+      temp->next = head;
+      head = temp;
     }
-    return (head);
+    prev = temp;
+    temp = temp->next;
+  }
 }
 
 
+
 //5, 30, 20, 10
+//search for 30 and move at front:
+// 30 5 20 10
 int main() {
     Node<int>* singlyLL = nullptr;
     PushAtFront(singlyLL, 10);
@@ -58,9 +57,7 @@ int main() {
     PushAtFront(singlyLL, 5);
     PrintList(singlyLL);
 
-
-    Node<int>* result = SearchKeyAndMove(singlyLL, 30);
-    cout << result->data << endl;
+    SearchKeyAndMove(singlyLL, 30);
     PrintList(singlyLL);
 
     return 0;

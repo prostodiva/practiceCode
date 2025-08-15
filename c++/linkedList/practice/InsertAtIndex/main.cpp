@@ -3,38 +3,43 @@
 
 using namespace std;
 
+template<typename T>
 struct Node {
-  int data;
+  T data;
   Node* next;
 
-  Node(int value) : data(value), next(nullptr) {};
+  Node(T value) : data(value), next(nullptr) {};
 };
 
-void InsertAtFront(Node*& head, int value) {
-  Node* newNode = new Node(value);
+template<typename T>
+void InsertAtFront(Node<T>*& head, T value) {
+  Node<T>* newNode = new Node<T>(value);
   newNode->next = head;
   head = newNode;
 }
 
-void InsertAtIndex(Node*& head, int index, int value) {
-  if (index < 0) return;
+template<typename T>
+void InsertAtIndex(Node<T>*& head, T value, int index) {
+  if (index < 0) return;    //don't work with negative
   if (index == 0) {
-    InsertAtFront(head, value); return;
-  } else {
-    Node* temp = head;
-    for (int i = 0; temp != nullptr && i < index - 1; i++) {
-      temp = temp->next;
-    }
-    if (temp == nullptr) return;
-    Node* newNode = new Node(value);
-    newNode->next = temp->next;
-    temp->next = newNode;
+    InsertAtFront(head, value);
+    return;
   }
+  Node<T>* temp = head;
+  for (int i = 0; temp != nullptr && i < index - 1; i++) {
+    temp = temp->next;
+  }
+  if (temp == nullptr) return;
+
+  Node<T>* newNode = new Node<T>(value);
+  newNode->next = temp->next;
+  temp->next = newNode;
 }
 
-void PrintList(Node*& head) {
-  Node* temp = head;
-  while(temp != nullptr) {
+template<typename T>
+void PrintList(Node<T>* head) {
+  Node<T>* temp = head;
+  while (temp != nullptr) {
     cout << temp->data << " -> ";
     temp = temp->next;
   }
@@ -42,13 +47,17 @@ void PrintList(Node*& head) {
 }
 
 int main() {
-  Node* singlyLL = nullptr;
-  InsertAtFront(singlyLL, 1);
-  InsertAtFront(singlyLL, 2);
-  InsertAtFront(singlyLL, 3);
+  Node<int>* singlyLL = nullptr;
+  InsertAtFront(singlyLL, 30);
+  InsertAtFront(singlyLL, 20);
+  InsertAtFront(singlyLL, 10);
   PrintList(singlyLL);
 
-  InsertAtIndex(singlyLL, 2, 10);  //at index 2, value 10
+  InsertAtIndex(singlyLL, 15, 2);
+  InsertAtIndex(singlyLL, 20, 0);
+  InsertAtIndex(singlyLL, 6, 1);
+
   PrintList(singlyLL);
+
   return 0;
 }

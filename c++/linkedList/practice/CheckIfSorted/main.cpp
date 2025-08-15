@@ -21,16 +21,18 @@ void PushAtFront(Node*& head, int value) {
 }
 
 bool CheckIfSorted(Node* head) {
-    Node* temp = head;
-    int x = -32768;
-    while(temp != nullptr) {
-      if (temp->data < x) {
-        return false;
-      }
-      x = temp->data;
-      temp = temp->next;
+  if (head == nullptr) return true;
+
+  Node* temp = head;
+  int x = -32768;
+  while (temp != nullptr) {
+    if (temp->data < x) {
+      return false;
     }
-    return true;
+    x = temp->data;
+    temp = temp->next;
+  }
+  return true;
 }
 
 void PrintList(Node*& head) {

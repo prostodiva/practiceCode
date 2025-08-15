@@ -1,5 +1,5 @@
 //insert a newNode in a sorted list in sorted position
-//approach: three poiters. one follows another.
+//approach: two poiters. one follows another.
 
 #include <iostream>
 #include <string>
@@ -33,20 +33,20 @@ void InsertAtFront(Node*& head, int value) {
   head = newNode;
 }
 
-void InsertInSortedList(Node*& head, int key) {
-  Node* temp = head;
+void InsertInSortedList(Node*& head, int value) {
+  if (head == nullptr) return;
+
   Node* prev = nullptr;
-  if (head == nullptr) {
-    InsertAtFront(head, key); return;
+  Node* temp = head;
+  if (value < temp->data) {
+    InsertAtFront(head, value);
+    return;
   }
-  if (key < temp->data) {
-    InsertAtFront(head, key); return;
-  }
-  while (temp != nullptr && temp->data < key) {
+  while (temp != nullptr && temp->data < value) {
     prev = temp;
     temp = temp->next;
   }
-  Node* newNode = new Node(key);
+  Node* newNode = new Node(value);
   prev->next = newNode;
   newNode->next = temp;
 }
@@ -64,9 +64,7 @@ void PrintList(Node*& head) {
 
 //sorted list: 10 20 30 40
 //insert 25
-//insert 35
-//insert 5
-//insert 45
+// 10 20 25 30 40
 int main() {
   Node* singlyLL = nullptr;
   InsertAtBack(singlyLL, 10);
@@ -76,12 +74,6 @@ int main() {
   PrintList(singlyLL);
 
   InsertInSortedList(singlyLL, 25);
-  PrintList(singlyLL);
-  InsertInSortedList(singlyLL, 35);
-  PrintList(singlyLL);
-  InsertInSortedList(singlyLL, 5);
-  PrintList(singlyLL);
-  InsertInSortedList(singlyLL, 45);
   PrintList(singlyLL);
 
   return 0;
