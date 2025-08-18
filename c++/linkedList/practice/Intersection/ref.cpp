@@ -61,8 +61,6 @@ ListNode* createIntersection(ListNode* list1, ListNode* list2, int intersectionV
     current2->next = intersection;
 
     return intersection;
-
-
 }
 
 // Function to free memory safely (handles shared nodes)
@@ -142,16 +140,14 @@ void freeListsWithIntersection(ListNode* list1, ListNode* list2) {
     //count separately the length of both lists
     //reset the pointers
     //move the pointer of the longer list forward by difference
-    //traverse through until the pointers are not nullptr
-    // if the pointers are equal return true, return the current node
+    //traverse through until the pointers are equal
     //if there is no intersection - return nullptr
     ListNode* GetIntersectionNode(ListNode *headA, ListNode *headB) {
         if (headA == nullptr || headB == nullptr) return nullptr;
 
-        int lenA = 0;
-        int lenB = 0;
         ListNode* tempA = headA;
         ListNode* tempB = headB;
+        int lenA = 0, lenB = 0;
         while (tempA != nullptr) {
           lenA++;
           tempA = tempA->next;
@@ -160,6 +156,7 @@ void freeListsWithIntersection(ListNode* list1, ListNode* list2) {
           lenB++;
           tempB = tempB->next;
         }
+
         tempA = headA;
         tempB = headB;
 
@@ -167,9 +164,8 @@ void freeListsWithIntersection(ListNode* list1, ListNode* list2) {
           for (int i = 0; i < lenA - lenB; i++) {
             tempA = tempA->next;
           }
-        }
-        if (lenB < lenA) {
-          for (int i = 0; i < lenB - lenA; i++) {
+        } else if (lenB > lenA) {
+          for (int i = 0; i < lenB - lenA;i++) {
             tempB = tempB->next;
           }
         }

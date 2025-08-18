@@ -35,29 +35,32 @@ void InsertAtFront(Node<T>*& head, T value) {
 }
 
 //check if head and head->next is nullptr(check for an empty string)
-//find the middle of the list
+//find the middle of the list(slow is the middle)
 //	- create two pointers(fast && slow)
 //	- traverse through the list until fast->next != nullptr
 //reverse the second half
 //	- sliding pointers technique
-//	- create three pointers(prev, temp, next)
+//	- create three pointers(prev, temp, next);next starts from slow->next
 //	- reverse with 4 steps
+//  prev is a new head
 //compare halfs
 //	- create two pointers(first, second)
 //restore the list
 //return the result
 template<typename T>
 bool isPalindrome(Node<T>* head) {
-    if (head == nullptr || head->next == nullptr) return true;
+    if (head == nullptr && head->next == nullptr) return true;
+
     Node<T>* slow = head;
     Node<T>* fast = head;
     while (fast->next && fast->next->next) {
       slow = slow->next;
       fast = fast->next->next;
     }
+
     Node<T>* prev = nullptr;
     Node<T>* temp = nullptr;
-    Node<T>* next = slow->next;    //start from the second node
+    Node<T>* next = slow->next;
     while (next != nullptr) {
       prev = temp;
       temp = next;
@@ -65,26 +68,31 @@ bool isPalindrome(Node<T>* head) {
       temp->next = prev;
     }
     prev = temp;
+
     Node<T>* first = head;
     Node<T>* second = prev;
-    bool palidrome = true;
+    bool palindrome = true;
     while (second != nullptr) {
       if (first->data != second->data) {
-        return false;
-        break;
-      }
+          palindrome = false;
+          break;
+        }
       first = first->next;
       second = second->next;
     }
+   //restore the list
     temp = prev;
     prev = nullptr;
-    while (temp) {
-        Node<T>* next = temp->next;
-        temp->next = prev;
-        prev = temp;
-        temp = next;
+    while (temp != nullptr) {
+      Node<T>* next = temp->next;
+      temp->next = prev;
+      prev = temp;
+      temp = next;
     }
-    return palidrome;
+   slow->next = prev;
+
+   return palindrome;
+
 }
 
 

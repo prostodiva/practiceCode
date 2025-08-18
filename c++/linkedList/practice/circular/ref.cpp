@@ -21,19 +21,19 @@ struct Node {
 //      the last node's next point to newNode
 // return head
 Node* CreateList(Node*& head, int value) {
- Node* newNode = new Node(value);
- if (head == nullptr) {
-   newNode->next = newNode;
-   head = newNode;
- } else {
-   Node* temp = head;
-   while (temp->next != head) {
-     temp = temp->next;
-   }
-   newNode->next = head;
-   temp->next = newNode;
- }
- return head;
+  Node* newNode = new Node(value);
+  if (head == nullptr) {
+    newNode->next = newNode;  //first node points to itself
+    head = newNode;
+  } else {
+    Node* temp = head;
+    while(temp->next != head) { //find the last node and insert after
+      temp = temp->next;
+    }
+    newNode->next = head;      //the new node poits to the first node
+    temp->next = newNode;      //the last node points to the new node
+  }
+  return head;
 }
 
 void PrintList(Node* head) {
@@ -99,17 +99,16 @@ void DeleteList(Node*& head) {
 
 int main() {
   Node* circularList = nullptr;
-  
+
   CreateList(circularList, 10);
   CreateList(circularList, 20);
   CreateList(circularList, 30);
-  PrintList(circularList);
 
+  PrintList(circularList);
   Insert(circularList, 0, 5);
   Insert(circularList, 2, 15);
   PrintList(circularList);
-
   DeleteList(circularList);
-  
+
   return 0;
 }
